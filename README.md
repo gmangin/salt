@@ -19,7 +19,7 @@
 
 - sale is written in python
 
-# INSTALLAtiON SALT-MASTER / SALT-MINION 
+# INSTALLAtiON BASIC SALT-MASTER / SALT-MINION 
 
 * on the master server
 
@@ -39,7 +39,7 @@
 
 > salt-key -L List the accepted and unaccepted salt keys
 
-> $ salt-key -a <minion id> Accept a minion key
+> salt-key -a <minion id> Accept a minion key
 
 > salt-key -A accept all unaccepted minion keys
 
@@ -80,3 +80,42 @@
 > sudo salt '*' pkg.refresh_db = apt-get update
 
 > salt '*' cmd.run 'apt-get autoremove'
+
+# GENERAL INSTALLATION
+In order to automate the minions'config in one unique file (often /srv/salt)
+
+[source docs.logilab.org](http://docs.logilab.org/solutionslinux_2014_salt/#/)
+
+[source docs.saltstack.com](http://docs.saltstack.com/en/latest/ref/states/top.html)
+
+* Example :
+* go to /etc/salt/master and decomment
+
+...
+  file_roots:
+    base:
+      - /srv/salt/
+...
+
+* go to /srv/salt (mkdir salt if needs), make a file top.sls.
+example of file top.sls:
+
+...
+ base:
+    '*':
+      - packages
+    'minion1':
+      - coucou
+...
+
+* packages and coucou are directories that have go an init.sls in each
+example init.sls of packages:
+
+...
+  packages:
+    pkg.latest:
+      - name: screen
+      - name: emacs23
+...
+
+# Have fun !
