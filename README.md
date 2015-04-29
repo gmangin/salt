@@ -91,31 +91,31 @@ In order to automate the minions'config in one unique file (often /srv/salt)
 * Example :
 * go to /etc/salt/master and decomment
 
-...
+```
   file_roots:
     base:
       - /srv/salt/
-...
+```
 
 * go to /srv/salt (mkdir salt if needs), make a file top.sls.
 example of file top.sls:
 
-...
+```
  base:
     '*':
       - packages
     'minion1':
       - coucou
-...
+```
 
 * packages and coucou are directories that have go an init.sls in each
 example init.sls of packages:
 
-...
+```
   packages:
     pkg.latest:
       - name: screen
       - name: emacs23
-...
+```
 
 # Have fun !
